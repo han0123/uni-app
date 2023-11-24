@@ -1,50 +1,47 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from 'vue';
+import type { BannerItem } from '../types/home.d.ts';
+const activeIndex = ref(0);
 
-const activeIndex = ref(0)
+const change: uniHelper.SwiperOnChange = (env) => {
+  // console.log(env)
+  // 这里就是将下标给了activeIndex
+  activeIndex.value = env.detail.current;
+};
+defineProps<{
+  list: BannerItem[];
+}>();
+// console.log(props);
 
-const change:uniHelper.SwiperOnChange = (env)=>{
-    // console.log(env)
-    // 这里就是将下标给了activeIndex
-    activeIndex.value = env.detail.current
-}
 </script>
 
 <template>
   <view class="carousel">
-    <swiper :circular="true" :autoplay="false" :interval="3000" @change="change">
-      <swiper-item >
-        <navigator url="/pages/index/index" hover-class="none" class="navigator">
+    <swiper
+      :circular="true"
+      :autoplay="false"
+      :interval="3000"
+      @change="change"
+    >
+      <swiper-item v-for="item in list" :key='item.id' >
+        <navigator
+          url="/pages/index/index"
+          hover-class="none"
+          class="navigator"
+        >
           <image
             mode="aspectFill"
             class="image"
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg"
+            :src="item.imgUrl"
           ></image>
         </navigator>
       </swiper-item>
-      <swiper-item>
-        <navigator url="/pages/index/index" hover-class="none" class="navigator">
-          <image
-            mode="aspectFill"
-            class="image"
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_2.jpg"
-          ></image>
-        </navigator>
-      </swiper-item>
-      <swiper-item>
-        <navigator url="/pages/index/index" hover-class="none" class="navigator">
-          <image
-            mode="aspectFill"
-            class="image"
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_3.jpg"
-          ></image>
-        </navigator>
-      </swiper-item>
+      
     </swiper>
     <!-- 指示点 -->
     <view class="indicator">
       <text
-        v-for="(item, index) in 3"
+        v-for="(item, index) in list"
         :key="item"
         class="dot"
         :class="{ active: index === activeIndex }"
