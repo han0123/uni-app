@@ -1,6 +1,6 @@
 <script setup lang="ts">
 //
-import type { CategoryItem } from '../types/home.d.ts';
+import type { CategoryItem } from '../../../types/home.d.ts';
 const props = defineProps<{
   categoryList: CategoryItem[];
 }>();

@@ -22,3 +22,5 @@ export const getHomeHotApi = ()=>{
         url:'/home/hot/mutli'
     })
 }
+
+

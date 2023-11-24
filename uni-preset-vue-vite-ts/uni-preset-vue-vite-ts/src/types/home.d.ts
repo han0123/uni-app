@@ -35,3 +35,5 @@ export type HotItem = {
     /** 推荐类型 */
     type: string
   }
+
+  
