@@ -29,7 +29,7 @@
 <script lang="ts">
   import {defineComponent} from 'vue'
     import {useMemberStore} from '@/stores'
-    import '@/utils/http'
+    import {http} from'@/utils/http'
   export default defineComponent({
     name:'my',
   })
@@ -38,7 +38,7 @@
 <script setup lang="ts">
   const memberStore = useMemberStore()
   const getData = ()=>{
-    uni.request({
+    http({
         method:'GET',
         url:'/home/banner',
         header:{},

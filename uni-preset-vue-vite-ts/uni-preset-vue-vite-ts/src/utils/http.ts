@@ -34,11 +34,13 @@ uni.addInterceptor('request',httpInterceptor);
 uni.addInterceptor('uploadFile',httpInterceptor);
 
 
+// 下面其实就是相应拦截器
 // 配置请求函数
 
 type Data<T> = {
     code: string
     msg: string
+    // 都是string类型的[]
     result: T
   }
   // 2.2 添加类型，支持泛型
@@ -52,6 +54,7 @@ type Data<T> = {
           // 状态码 2xx， axios 就是这样设计的
           if (res.statusCode >= 200 && res.statusCode < 300) {
             // 2.1 提取核心数据 res.data
+            // 这里是指定泛型
             resolve(res.data as Data<T>)
           } else if (res.statusCode === 401) {
             // 401错误  -> 清理用户信息，跳转到登录页
