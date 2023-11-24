@@ -1,5 +1,6 @@
 import {http} from '@/utils/http'
-import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
+import type { BannerItem, CategoryItem, HotItem,GuessItem } from '@/types/home'
+import type {PageResult,PageParams} from '@/types/global'
 export const getHomeBannerAPi = (distributionSite=1)=>{
     return http<BannerItem[]>({
         method:'GET',
@@ -22,5 +23,17 @@ export const getHomeHotApi = ()=>{
         url:'/home/hot/mutli'
     })
 }
+
+// src/services/home.ts
+/**
+ * 猜你喜欢-小程序
+ */
+export const getHomeGoodsGuessLikeAPI = (data?: PageParams) => {
+    return http<PageResult<GuessItem>>({
+      method: 'GET',
+      url: '/home/goods/guessLike',
+      data,
+    })
+  }
 
 

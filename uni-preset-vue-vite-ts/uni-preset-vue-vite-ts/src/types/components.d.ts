@@ -10,4 +10,5 @@ declare module 'vue' {
   }
 }
 
+// 这里获取的是组件实例的类型，后面的这个InstanceType是组件方法，方便后面滚动的时候定义类型
 export type XtxGuessInstance = InstanceType<typeof XtxGuess>

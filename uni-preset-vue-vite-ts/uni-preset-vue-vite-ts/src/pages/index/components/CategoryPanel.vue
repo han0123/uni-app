@@ -4,7 +4,7 @@ import type { CategoryItem } from '../../../types/home.d.ts';
 const props = defineProps<{
   categoryList: CategoryItem[];
 }>();
-console.log(props);
+// console.log(props);
 </script>
 
 <template>

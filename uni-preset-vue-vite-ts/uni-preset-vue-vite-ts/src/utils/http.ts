@@ -7,7 +7,7 @@ const httpInterceptor ={
         // request 触发前拼接 url 
         if(!args.url.startsWith('http')){
             args.url = baseURL + args.url
-            console.log(123,args.url)
+            // console.log(123,args.url)
         }
         // 设置超时时间
         args.timeout = 10000
@@ -16,7 +16,7 @@ const httpInterceptor ={
             ...args.header,
             'source-client': 'miniapp'
         }
-        console.log(args)
+        // console.log(args)
          // 4. 添加 token 请求头标识
          const memberStore = useMemberStore()
         const token = memberStore.profile?.token

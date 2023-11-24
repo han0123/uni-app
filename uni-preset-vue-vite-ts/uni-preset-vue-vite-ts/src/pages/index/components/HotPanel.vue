@@ -4,7 +4,7 @@ import type {HotItem} from '../../../types/home.d.ts'
 const props = defineProps<{
   HotList:HotItem[]
 }>()
-console.log(props)
+// console.log(props)
 </script>
 
 <template>

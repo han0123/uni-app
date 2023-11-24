@@ -1,5 +1,40 @@
 <script setup lang="ts">
 //
+
+import { onMounted, ref } from 'vue';
+import { getHomeGoodsGuessLikeAPI } from '../services/home.ts';
+import type { GuessItem } from '@/types/home';
+const guessList = ref<GuessItem[]>([]);
+const finish = ref(false);
+const PageParams = {
+  page: 30,
+  pageSize: 10,
+};
+
+const getHomeGoodsGuessLike = async () => {
+  if (finish.value == true) {
+    return;
+  }
+  const res = await getHomeGoodsGuessLikeAPI(PageParams);
+  // console.log(res)
+  //   guessList.value = res.result.items;
+  //   数据可追加
+  guessList.value.push(...res.result.items);
+  //   判断触底的条件
+  if (PageParams.page < res.result.pages) {
+    // 页码要加
+    PageParams.page++;
+  } else {
+    finish.value = true;
+  }
+};
+onMounted(() => {
+  getHomeGoodsGuessLike();
+});
+
+defineExpose({
+  getMore: getHomeGoodsGuessLike,
+});
 </script>
 
 <template>
@@ -10,23 +45,21 @@
   <view class="guess">
     <navigator
       class="guess-item"
-      v-for="item in 10"
-      :key="item"
+      v-for="item in guessList"
+      :key="item.id"
       :url="`/pages/goods/goods?id=4007498`"
     >
-      <image
-        class="image"
-        mode="aspectFill"
-        src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/goods_big_1.jpg"
-      ></image>
-      <view class="name"> 德国THORE男表 超薄手表男士休闲简约夜光石英防水直径40毫米 </view>
+      <image class="image" mode="aspectFill" :src="item.picture"></image>
+      <view class="name">
+        {{ item.name }}
+      </view>
       <view class="price">
         <text class="small">¥</text>
-        <text>899.00</text>
+        <text>{{ item.price }}</text>
       </view>
     </navigator>
   </view>
-  <view class="loading-text"> 正在加载... </view>
+  <view class="loading-text">{{finish?'已经到底了':'正在加载...'}}</view>
 </template>
 
 <style lang="scss">
