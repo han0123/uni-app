@@ -7,7 +7,7 @@ import type { GuessItem } from '@/types/home';
 const guessList = ref<GuessItem[]>([]);
 const finish = ref(false);
 const PageParams = {
-  page: 30,
+  page: 1,
   pageSize: 10,
 };
 
@@ -28,11 +28,20 @@ const getHomeGoodsGuessLike = async () => {
     finish.value = true;
   }
 };
+// 重置刷新
+// 刷新页码，刷新列表，重置结束标志
+const resetData = () => {
+  PageParams.page = 1;
+  // PageParams.pageSize = 10
+  guessList.value = [];
+  finish.value = false;
+};
 onMounted(() => {
   getHomeGoodsGuessLike();
 });
 
 defineExpose({
+  resetData,
   getMore: getHomeGoodsGuessLike,
 });
 </script>
@@ -59,7 +68,7 @@ defineExpose({
       </view>
     </navigator>
   </view>
-  <view class="loading-text">{{finish?'已经到底了':'正在加载...'}}</view>
+  <view class="loading-text">{{ finish ? '已经到底了' : '正在加载...' }}</view>
 </template>
 
 <style lang="scss">
